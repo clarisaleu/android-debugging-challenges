@@ -3,7 +3,9 @@ package com.codepath.debuggingchallenges.adapters;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.media.Image;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,13 +18,13 @@ import com.bumptech.glide.Glide;
 import com.codepath.debuggingchallenges.R;
 import com.codepath.debuggingchallenges.models.Movie;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder> {
 
-    private List<Movie> movies;
+    private ArrayList<Movie> movies;
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         // only needed because we need to set the background color
         View view;
 
@@ -35,22 +37,21 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
             super(itemView);
 
             view = itemView;
-            tvName = itemView.findViewById(R.id.tvTitle);
-            tvRating = itemView.findViewById(R.id.tvRating);
-            ivPoster = itemView.findViewById(R.id.ivPoster);
+            tvName = (TextView) itemView.findViewById(R.id.tvTitle);
+            tvRating =(TextView) itemView.findViewById(R.id.tvRating);
+            ivPoster = (ImageView) itemView.findViewById(R.id.ivPoster);
         }
     }
 
-    public MoviesAdapter(List<Movie> movies) {
+    public MoviesAdapter(ArrayList<Movie> movies) {
         this.movies = movies;
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return movies.size();
     }
 
-    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
@@ -60,12 +61,12 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
         View movieView = inflater.inflate(R.layout.item_movie, parent, false);
 
         // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(movieView);
-        return viewHolder;
+        return new ViewHolder(movieView);
     }
 
+
     @Override
-    public void onBindViewHolder(MoviesAdapter.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@Nullable ViewHolder viewHolder, int position) {
 
         Movie movie = movies.get(position);
 
@@ -86,4 +87,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
                 viewHolder.ivPoster);
 
     }
+
+
+
 }
